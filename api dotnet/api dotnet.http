@@ -1,11 +1,15 @@
-@api dotnet_HostAddress = https://localhost:7257
-@api_dotnet_HostAddress = http://localhost:5138
+@api_dotnet_HostAddress = https://localhost:7257
+
 
 GET {{api_dotnet_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
 
-GET {{api dotnet_HostAddress}}/weatherforecast
+GET {{api_dotnet_HostAddress}}/weatherforecast
+
+###
+
+GET {{api_dotnet_HostAddress}}/api/book
 
 ###
