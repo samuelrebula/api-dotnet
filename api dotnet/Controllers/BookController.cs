@@ -24,5 +24,15 @@ namespace api_dotnet.Controllers
 
             return Ok(books);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<Book>>> GetBook(int id)
+        {
+            var book = await _dataContext.Books.FindAsync(id);
+            if(book is null)
+                return NotFound("Book not found.");
+
+            return Ok(book);
+        }
     }
 }
