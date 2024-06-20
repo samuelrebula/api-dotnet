@@ -43,5 +43,21 @@ namespace api_dotnet.Controllers
 
             return Ok(await _dataContext.Books.ToListAsync());
         }
+
+        [HttpPut]
+        public async Task<ActionResult<List<Book>>> UpdateBook(Book updatedBook)
+        {
+            var dbBook = await _dataContext.Books.FindAsync(updatedBook.Id);
+            if (dbBook is null)
+                return NotFound("Book not found.");
+
+            dbBook.Title = updatedBook.Title;
+            dbBook.Description = updatedBook.Description;
+            dbBook.Author = updatedBook.Author;
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(await _dataContext.Books.ToListAsync());
+        }
     }
 }
