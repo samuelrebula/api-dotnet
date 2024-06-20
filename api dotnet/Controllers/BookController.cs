@@ -59,5 +59,19 @@ namespace api_dotnet.Controllers
 
             return Ok(await _dataContext.Books.ToListAsync());
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<List<Book>>> DeleteBook(int id)
+        {
+            var dbBook = await _dataContext.Books.FindAsync(id);
+            if (dbBook is null)
+                return NotFound("Book not found.");
+
+            _dataContext.Books.Remove(dbBook);
+
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(await _dataContext.Books.ToListAsync());
+        }
     }
 }
