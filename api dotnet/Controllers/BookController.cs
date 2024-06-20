@@ -26,13 +26,22 @@ namespace api_dotnet.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<Book>>> GetBook(int id)
+        public async Task<ActionResult<Book>> GetBook(int id)
         {
             var book = await _dataContext.Books.FindAsync(id);
             if(book is null)
                 return NotFound("Book not found.");
 
             return Ok(book);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<Book>>> AddBook(Book book)
+        {
+            _dataContext.Books.Add(book);
+            await _dataContext.SaveChangesAsync();
+
+            return Ok(await _dataContext.Books.ToListAsync());
         }
     }
 }
